@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+</head>
+<body>
+    <h1>Forum</h1>
+    <p><a href="{{ url_for('logout') }}">Wyloguj</a></p>
+
+    <h2>Dodaj nowy post:</h2>
+    <form method="POST" action="{{ url_for('add_post') }}">
+        <textarea name="post_content" placeholder="Treść posta" required></textarea>
+        <br>
+        <button type="submit">Dodaj post</button>
+    </form>
+
+    <h2>Posty:</h2>
+    {% for post in posts %}
+    <div>
+        <h3>{{ post['title'] }}</h3>
+        <p>{{ post['content'] }}</p>
+        <p>Autor: {{ post['author'] }}</p>
+
+        <h4>Dodaj komentarz:</h4>
+        <form method="POST" action="{{ url_for('add_comment', post_id=post['id']) }}">
+            <textarea name="comment_content" placeholder="Treść komentarza" required></textarea>
+            <br>
+            <button type="submit">Dodaj komentarz</button>
+        </form>
+
+        <hr>
+    </div>
+    {% endfor %}
+</body>
+</html>
+
