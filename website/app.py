@@ -70,32 +70,25 @@ def login():
     return render_template('login.html')
 
 # Forum
-@app.route('/forum')
+@app.route('/forum', methods=['GET', 'POST'])
 def forum():
     if 'loggedin' in session:
-        # Pobierz posty z bazy danych
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM posts")
-        posts = cur.fetchall()
-        cur.close()
-        return render_template('forum.html', posts=posts)
-    else:
-        return redirect(url_for('login'))
-
-# Dodawanie nowego posta
-@app.route('/add_post', methods=['GET', 'POST'])
-def add_post():
-    if request.method == 'POST' and 'loggedin' in session:
-        userDetails = request.form
-        post_content = userDetails['post_content']
-        # Dodaj nowy post do bazy danych
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO posts(content, author) VALUES(%s, %s)", (post_content, session['username']))
-        mysql.connection.commit()
-        cur.close()
-        return redirect(url_for('forum'))
-    elif 'loggedin' in session:
-        return render_template('add_post.html')
+        if request.method == 'POST':
+            userDetails = request.form
+            post_content = userDetails['post_content']
+            # Dodaj nowy post do bazy danych
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO posts(content, user_id) VALUES(%s, (SELECT user_id FROM users WHERE username = %s))", (post_content, session['username']))
+            mysql.connection.commit()
+            cur.close()
+            return redirect(url_for('forum'))
+        else:
+            # Pobierz posty z bazy danych
+            cur = mysql.connection.cursor()
+            cur.execute("SELECT * FROM posts")
+            posts = cur.fetchall()
+            cur.close()
+            return render_template('forum.html', posts=posts)
     else:
         return redirect(url_for('login'))
 
@@ -107,7 +100,7 @@ def add_comment(post_id):
         comment_content = userDetails['comment_content']
         # Dodaj nowy komentarz do bazy danych
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO comments(content, post_id, author) VALUES(%s, %s, %s)", (comment_content, post_id, session['username']))
+        cur.execute("INSERT INTO comments(content, post_id, user_id) VALUES(%s, %s, (SELECT user_id FROM users WHERE username = %s))", (comment_content, post_id, session['username']))
         mysql.connection.commit()
         cur.close()
         return redirect(url_for('forum'))
@@ -122,6 +115,7 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 
 

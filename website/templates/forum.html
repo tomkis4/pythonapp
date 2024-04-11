@@ -2,37 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forum</title>
 </head>
 <body>
     <h1>Forum</h1>
-    <p><a href="{{ url_for('logout') }}">Wyloguj</a></p>
 
-    <h2>Dodaj nowy post:</h2>
-    <form method="POST" action="{{ url_for('add_post') }}">
-        <textarea name="post_content" placeholder="Treść posta" required></textarea>
-        <br>
-        <button type="submit">Dodaj post</button>
-    </form>
-
-    <h2>Posty:</h2>
-    {% for post in posts %}
-    <div>
-        <h3>{{ post['title'] }}</h3>
-        <p>{{ post['content'] }}</p>
-        <p>Autor: {{ post['author'] }}</p>
-
-        <h4>Dodaj komentarz:</h4>
-        <form method="POST" action="{{ url_for('add_comment', post_id=post['id']) }}">
-            <textarea name="comment_content" placeholder="Treść komentarza" required></textarea>
-            <br>
-            <button type="submit">Dodaj komentarz</button>
+    {% if 'loggedin' in session %}
+        <p>Zalogowany jako: {{ session['username'] }}</p>
+        <a href="{{ url_for('logout') }}">Wyloguj</a>
+        <h2>Dodaj nowy post:</h2>
+        <form action="{{ url_for('forum') }}" method="POST">
+            <textarea name="post_content" rows="4" cols="50" placeholder="Wpisz treść posta"></textarea><br>
+            <input type="submit" value="Dodaj post">
         </form>
+    {% else %}
+        <a href="{{ url_for('login') }}">Zaloguj się</a>
+        <a href="{{ url_for('register') }}">Zarejestruj się</a>
+    {% endif %}
 
-        <hr>
-    </div>
-    {% endfor %}
+    <h2>Lista postów:</h2>
+    {% if posts %}
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <h3>{{ post['title'] }}</h3>
+                    <p>{{ post['content'] }}</p>
+                    <p>Autor: {{ post['author'] }}</p>
+                    <p>Data utworzenia: {{ post['created_at'] }}</p>
+                    <form action="{{ url_for('add_comment', post_id=post['post_id']) }}" method="POST">
+                        <textarea name="comment_content" rows="4" cols="50" placeholder="Dodaj komentarz"></textarea><br>
+                        <input type="submit" value="Dodaj komentarz">
+                    </form>
+                    <h4>Komentarze:</h4>
+                    {% if post['comments'] %}
+                        <ul>
+                            {% for comment in post['comments'] %}
+                                <li>
+                                    <p>{{ comment['content'] }}</p>
+                                    <p>Autor: {{ comment['author'] }}</p>
+                                    <p>Data utworzenia: {{ comment['created_at'] }}</p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Brak komentarzy.</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Brak postów.</p>
+    {% endif %}
 </body>
 </html>
+
 
