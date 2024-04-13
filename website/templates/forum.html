@@ -13,10 +13,7 @@
         <p>Zalogowany jako: {{ session['username'] }}</p>
         <a href="{{ url_for('logout') }}">Wyloguj</a>
         <h2>Dodaj nowy post:</h2>
-        <form action="{{ url_for('forum') }}" method="POST">
-            <textarea name="post_content" rows="4" cols="50" placeholder="Wpisz treść posta"></textarea><br>
-            <input type="submit" value="Dodaj post">
-        </form>
+        <a href="{{ url_for('add_post') }}">Dodaj nowy post</a>
     {% else %}
         <a href="{{ url_for('login') }}">Zaloguj się</a>
         <a href="{{ url_for('register') }}">Zarejestruj się</a>
@@ -31,24 +28,6 @@
                     <p>{{ post['content'] }}</p>
                     <p>Autor: {{ post['author'] }}</p>
                     <p>Data utworzenia: {{ post['created_at'] }}</p>
-                    <form action="{{ url_for('add_comment', post_id=post['post_id']) }}" method="POST">
-                        <textarea name="comment_content" rows="4" cols="50" placeholder="Dodaj komentarz"></textarea><br>
-                        <input type="submit" value="Dodaj komentarz">
-                    </form>
-                    <h4>Komentarze:</h4>
-                    {% if post['comments'] %}
-                        <ul>
-                            {% for comment in post['comments'] %}
-                                <li>
-                                    <p>{{ comment['content'] }}</p>
-                                    <p>Autor: {{ comment['author'] }}</p>
-                                    <p>Data utworzenia: {{ comment['created_at'] }}</p>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        <p>Brak komentarzy.</p>
-                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
@@ -57,5 +36,8 @@
     {% endif %}
 </body>
 </html>
+
+
+
 
 

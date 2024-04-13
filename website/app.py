@@ -69,41 +69,35 @@ def login():
 
     return render_template('login.html')
 
-# Forum
-@app.route('/forum', methods=['GET', 'POST'])
-def forum():
+# Strona dodawania postu
+@app.route('/add_post', methods=['GET', 'POST'])
+def add_post():
     if 'loggedin' in session:
         if request.method == 'POST':
             userDetails = request.form
+            post_title = userDetails['post_title']
             post_content = userDetails['post_content']
             # Dodaj nowy post do bazy danych
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO posts(content, user_id) VALUES(%s, (SELECT user_id FROM users WHERE username = %s))", (post_content, session['username']))
+            cur.execute("INSERT INTO posts(title, content, user_id) VALUES(%s, %s, (SELECT user_id FROM users WHERE username = %s))", (post_title, post_content, session['username']))
             mysql.connection.commit()
             cur.close()
             return redirect(url_for('forum'))
         else:
-            # Pobierz posty z bazy danych
-            cur = mysql.connection.cursor()
-            cur.execute("SELECT * FROM posts")
-            posts = cur.fetchall()
-            cur.close()
-            return render_template('forum.html', posts=posts)
+            return render_template('add_post.html')
     else:
         return redirect(url_for('login'))
 
-# Dodawanie komentarza
-@app.route('/add_comment/<int:post_id>', methods=['POST'])
-def add_comment(post_id):
-    if request.method == 'POST' and 'loggedin' in session:
-        userDetails = request.form
-        comment_content = userDetails['comment_content']
-        # Dodaj nowy komentarz do bazy danych
+# Forum
+@app.route('/forum')
+def forum():
+    if 'loggedin' in session:
+        # Pobierz posty z bazy danych wraz z nazwą autora
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO comments(content, post_id, user_id) VALUES(%s, %s, (SELECT user_id FROM users WHERE username = %s))", (comment_content, post_id, session['username']))
-        mysql.connection.commit()
+        cur.execute("SELECT posts.post_id, posts.title, posts.content, users.username AS author, posts.created_at FROM posts INNER JOIN users ON posts.user_id = users.user_id")
+        posts = cur.fetchall()
         cur.close()
-        return redirect(url_for('forum'))
+        return render_template('forum.html', posts=posts)
     else:
         return redirect(url_for('login'))
 
@@ -115,6 +109,8 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
 
 
 
