@@ -88,18 +88,30 @@ def add_post():
     else:
         return redirect(url_for('login'))
 
-# Forum
+# Endpoint forum
 @app.route('/forum')
 def forum():
+    print("Funkcja widoku forum została wywołana.")  # Dodatkowe drukowanie w celu debugowania
+
     if 'loggedin' in session:
-        # Pobierz posty z bazy danych wraz z nazwą autora
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT posts.post_id, posts.title, posts.content, users.username AS author, posts.created_at FROM posts INNER JOIN users ON posts.user_id = users.user_id")
-        posts = cur.fetchall()
-        cur.close()
-        return render_template('forum.html', posts=posts)
+        try:
+            # Pobierz wszystkie posty z bazy danych
+            cur = mysql.connection.cursor()
+            cur.execute("SELECT posts.title, posts.content, users.username AS author, posts.created_at FROM posts JOIN users ON posts.user_id = users.user_id ORDER BY posts.created_at DESC")
+            posts = cur.fetchall()
+            cur.close()
+
+            # Dodatkowe drukowanie w celu debugowania
+            print(posts)
+
+            # Przekazanie listy postów do szablonu forum.html
+            return render_template('forum.html', posts=posts)
+        except Exception as e:
+            return f'Wystąpił błąd podczas pobierania postów: {str(e)}'
     else:
         return redirect(url_for('login'))
+
+
 
 # Wylogowanie
 @app.route('/logout')
@@ -109,8 +121,6 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
 
 
 

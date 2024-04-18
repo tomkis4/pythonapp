@@ -24,10 +24,10 @@
         <ul>
             {% for post in posts %}
                 <li>
-                    <h3>{{ post['title'] }}</h3>
-                    <p>{{ post['content'] }}</p>
-                    <p>Autor: {{ post['author'] }}</p>
-                    <p>Data utworzenia: {{ post['created_at'] }}</p>
+                    <h3>{{ post[0] }}</h3> <!-- Tytuł posta -->
+                    <p>{{ post[1] }}</p> <!-- Treść posta -->
+                    <p>Autor: {{ post[2] }}</p> <!-- Autor posta -->
+                    <p>Data utworzenia: {{ post[3] }}</p> <!-- Data utworzenia posta -->
                 </li>
             {% endfor %}
         </ul>
@@ -36,8 +36,4 @@
     {% endif %}
 </body>
 </html>
-
-
-
-
 

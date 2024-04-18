@@ -1,0 +1,99 @@
+/* forum.css */
+
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+/* Navigation */
+nav {
+    background-color: #007bff;
+    padding: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Form styles */
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Post styles */
+.post {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post h3 {
+    margin-top: 0;
+}
+
+.post p {
+    margin-bottom: 10px;
+}
+
+.post p:last-child {
+    margin-bottom: 0;
+}
+
+.post-info {
+    color: #888;
+    font-size: 14px;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
