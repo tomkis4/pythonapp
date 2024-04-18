@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
+import requests
 
 app = Flask(__name__)
 
@@ -110,7 +111,22 @@ def forum():
             return f'Wystąpił błąd podczas pobierania postów: {str(e)}'
     else:
         return redirect(url_for('login'))
+@app.route('/koty')
+def koty():
+    url = 'https://api.thecatapi.com/v1/images/search'
+    headers = {'x-api-key': 'TWÓJ_KLUCZ_DO_THE_CAT_API'}
 
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            # Wyciągnij URL obrazu kota z danych
+            img_url = data[0]['url']
+            return render_template('koty.html', img_url=img_url)
+        else:
+            return 'Błąd podczas pobierania obrazu kota.'
+    except Exception as e:
+        return f'Wystąpił błąd: {str(e)}'
 
 
 # Wylogowanie
@@ -121,9 +137,5 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-
 
 
