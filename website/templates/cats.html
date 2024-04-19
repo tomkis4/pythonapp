@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cats.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obrazek kota</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Oto obrazek kota:</h1>
+        <img id="catImage" src="{{ img_url }}" alt="Kot">
+        <br>
+        <button id="nextButton">Następny obraz</button>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            // Obsługa kliknięcia przycisku "Następny obraz"
+            $('#nextButton').click(function(){
+                $.ajax({
+                    url: '/next_cat_image',  // Endpoint, który będzie pobierał następny obraz
+                    type: 'GET',
+                    success: function(data){
+                        // Po otrzymaniu nowego obrazu, aktualizujemy źródło obrazka
+                        $('#catImage').attr('src', data.img_url);
+                    },
+                    error: function(xhr, status, error){
+                        console.error('Wystąpił błąd podczas pobierania obrazu: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

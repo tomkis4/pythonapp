@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cat_facts.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Losowy fakt o kotach</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Losowy fakt o kotach</h1>
+        <p id="fact">{{ fact }}</p>
+        <button id="nextFactButton">Kolejny fakt</button>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            // Obsługa kliknięcia przycisku "Kolejny fakt"
+            $('#nextFactButton').click(function(){
+                $.ajax({
+                    url: '/next_cat_fact',  // Endpoint, który będzie pobierał kolejny fakt
+                    type: 'GET',
+                    success: function(data){
+                        // Po otrzymaniu nowego faktu, aktualizujemy tekst na stronie
+                        $('#fact').text(data.fact);
+                    },
+                    error: function(xhr, status, error){
+                        console.error('Wystąpił błąd podczas pobierania faktu: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

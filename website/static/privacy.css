@@ -1,0 +1,18 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    color: #ffffffef;
+    background-image: url('https://i.imgur.com/wxE8nEE.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    margin-bottom: 20px;
+    color: #fefefe; 
+}

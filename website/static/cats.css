@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('https://img.freepik.com/free-photo/cute-kitten-sitting-outdoors-looking-camera-surrounded-by-snow-generated-by-artificial-intelligence_188544-84910.jpg?w=1060&t=st=1713521166~exp=1713521766~hmac=497247197556f4c91b8915dc35e281773ad90176712e5dac0ca174c47b1fad62');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center; /* Wyśrodkowanie tekstu */
+}
+
+h1 {
+    color: #fff;
+}
+
+img {
+    max-width: 400px; /* Stała szerokość obrazu */
+    height: auto; /* Automatyczne dopasowanie wysokości */
+    margin-bottom: 20px; /* Dodanie odstępu między obrazem a przyciskiem */
+    display: block; /* Aby obraz był wyśrodkowany i miał odstęp na górze i na dole */
+    margin-left: auto; /* Wyśrodkowanie obrazu */
+    margin-right: auto; /* Wyśrodkowanie obrazu */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block; /* Aby przycisk był wyśrodkowany i miał odstęp na górze i na dole */
+    margin-left: auto; /* Wyśrodkowanie przycisku */
+    margin-right: auto; /* Wyśrodkowanie przycisku */
+}
+
+button:hover {
+    background-color: #45a049;
+}
+

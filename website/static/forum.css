@@ -1,69 +1,41 @@
-/* Resetowanie styli */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Style dla body */
 body {
     font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f9f9f9;
-    color: #333;
-    margin: 20px;
+    margin: 0;
+    padding: 0;
+    background-color: #8bf9ee30; /* Jasnozielony kolor tła */
 }
 
-/* Style dla nagłówków */
-h1, h2, h3 {
-    margin-bottom: 10px;
+h1 {
+    text-align: center;
+    margin-top: 20px;
 }
 
-/* Style dla linków */
+h2 {
+    margin-top: 30px;
+}
+
 a {
-    color: #007bff;
     text-decoration: none;
+    color: #007bff;
+    margin-right: 10px;
 }
 
 a:hover {
     text-decoration: underline;
 }
 
-/* Style dla kontenera głównego */
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* Style dla listy postów */
-.post-list {
-    list-style: none;
+ul {
+    list-style-type: none;
     padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-.post-list li {
-    width: 80%; /* Ustawienie szerokości postów na 80% szerokości kontenera */
-    border: 1px solid #ccc;
+li {
     background-color: #fff;
-    padding: 20px;
-    margin-bottom: 30px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    color: red !important; /* Zmiana koloru tekstu na czerwony */
+    padding: 15px;
+    margin-top: 20px;
 }
 
-.post-list li h3 {
-    margin-bottom: 10px;
-}
-
-.post-list li p {
-    margin-bottom: 15px;
-}
-
-.post-list li p:last-child {
-    margin-bottom: 0;
+p {
+    margin: 10px 0;
 }

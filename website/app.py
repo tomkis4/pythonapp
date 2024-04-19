@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 import requests
+from flask import jsonify
 
 app = Flask(__name__)
 
@@ -14,7 +15,10 @@ app.config['MYSQL_PASSWORD'] = ''  # Twoje hasło MySQL
 app.config['MYSQL_DB'] = 'python'  # Nazwa bazy danych
 
 mysql = MySQL(app)
-
+#strona z polityką prywatności
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
 # Strona główna
 @app.route('/')
 def index():
@@ -62,7 +66,7 @@ def login():
             if result > 0:
                 session['loggedin'] = True
                 session['username'] = username
-                return redirect(url_for('forum'))
+                return redirect(url_for('index'))
             else:
                 return 'Niepoprawne dane logowania. Spróbuj ponownie.'
         except Exception as e:
@@ -111,7 +115,7 @@ def forum():
             return f'Wystąpił błąd podczas pobierania postów: {str(e)}'
     else:
         return redirect(url_for('login'))
-@app.route('/koty')
+@app.route('/cats')
 def koty():
     url = 'https://api.thecatapi.com/v1/images/search'
     headers = {'x-api-key': 'TWÓJ_KLUCZ_DO_THE_CAT_API'}
@@ -122,11 +126,62 @@ def koty():
             data = response.json()
             # Wyciągnij URL obrazu kota z danych
             img_url = data[0]['url']
-            return render_template('koty.html', img_url=img_url)
+            return render_template('cats.html', img_url=img_url)
         else:
             return 'Błąd podczas pobierania obrazu kota.'
     except Exception as e:
         return f'Wystąpił błąd: {str(e)}'
+    # Endpoint dla kolejnego obrazu kota
+@app.route('/next_cat_image')
+def next_cat_image():
+    url = 'https://api.thecatapi.com/v1/images/search'
+    headers = {'x-api-key': 'TWÓJ_KLUCZ_DO_THE_CAT_API'}
+
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            img_url = data[0]['url']
+            return jsonify({'img_url': img_url})  # Zwracamy URL obrazka w formacie JSON
+        else:
+            return jsonify({'error': 'Błąd podczas pobierania obrazu kota.'}), 500
+    except Exception as e:
+        return jsonify({'error': f'Wystąpił błąd: {str(e)}'}), 500
+# Endpoint dla strony z losowymi faktami o kotach
+@app.route('/cat_facts')
+def cat_facts():
+    try:
+        # Wykonujemy zapytanie GET do API Cat Facts
+        response = requests.get('https://catfact.ninja/fact')
+
+        # Sprawdzamy czy odpowiedź jest poprawna (status code 200)
+        if response.status_code == 200:
+            # Jeśli odpowiedź jest poprawna, pobieramy fakt z odpowiedzi JSON
+            fact = response.json()['fact']
+            # Zwracamy szablon HTML z wyświetlonym faktem
+            return render_template('cat_facts.html', fact=fact)
+        else:
+            # Jeśli odpowiedź nie jest poprawna, zwracamy komunikat o błędzie
+            return 'Błąd podczas pobierania faktów o kotach.'
+    except Exception as e:
+        # Jeśli wystąpi błąd podczas pobierania danych z API, zwracamy komunikat o błędzie
+        return f'Wystąpił błąd: {str(e)}'
+# Endpoint dla kolejnego losowego faktu o kotach
+@app.route('/next_cat_fact')
+def next_cat_fact():
+    try:
+        # Wykonujemy zapytanie GET do API Cat Facts
+        response = requests.get('https://catfact.ninja/fact')
+
+        # Sprawdzamy czy odpowiedź jest poprawna (status code 200)
+        if response.status_code == 200:
+            # Jeśli odpowiedź jest poprawna, pobieramy nowy fakt z odpowiedzi JSON
+            fact = response.json()['fact']
+            return jsonify({'fact': fact})  # Zwracamy fakt w formacie JSON
+        else:
+            return jsonify({'error': 'Błąd podczas pobierania faktu o kotach.'}), 500
+    except Exception as e:
+        return jsonify({'error': f'Wystąpił błąd: {str(e)}'}), 500
 
 
 # Wylogowanie
