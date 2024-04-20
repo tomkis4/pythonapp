@@ -9,14 +9,26 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f9f9f9;
+    background: linear-gradient(135deg, #f4b343 0%, #85edfd 100%);
     color: #333;
     margin: 20px;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
 }
 
 /* Style dla nagłówków */
 h1 {
     margin-bottom: 20px;
+    text-align: center; /* Wyśrodkowanie tekstu */
+    position: fixed; /* Ustawienie pozycji na "fixed" */
+    top: 35%; /* Przesunięcie do góry o połowę wysokości */
+    left: 50%; /* Przesunięcie do środka o połowę szerokości */
+    transform: translate(-50%, -50%); /* Korekta pozycji do środka */
 }
 
 /* Style dla linków */
@@ -36,7 +48,56 @@ a:hover {
     text-align: center;
 }
 
-/* Style dla paragrafu */
-p {
-    margin-bottom: 20px;
+/* Style dla treści */
+.navbar {
+    background-color: rgba(51, 51, 51, 0.3); /* Przymglony kolor tła */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
 }
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 15px; /* Odstęp między linkami */
+}
+
+.navbar a:last-child {
+    margin-right: 0; /* Usunięcie marginesu z ostatniego linku */
+}
+
+.navbar2 {
+    background-color: rgba(51, 51, 51, 0.3); /* Przymglony kolor tła */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end; /* Umieszczenie linków po prawej stronie */
+    align-items: center; /* Wyśrodkowanie linków w pionie */
+    gap: 15px;
+}
+
+.navbar2 a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 15px; /* Lekki odstęp między linkami */
+}
+
+.navbar2 a:first-child {
+    margin-left: 0; /* Usunięcie marginesu z pierwszego linku */
+}
+
+.content-center {
+    margin-bottom: 20px;
+    text-align: center; /* Wyśrodkowanie tekstu */
+    position: fixed; /* Ustawienie pozycji na "fixed" */
+    top: 38%; /* Przesunięcie do góry o 30% wysokości ekranu */
+    bottom: auto; /* Resetowanie wartości bottom */
+    left: 50%; /* Przesunięcie do środka o połowę szerokości */
+    transform: translateX(-50%); /* Korekta pozycji do środka */
+}
+
+
+
+
+
+  
+

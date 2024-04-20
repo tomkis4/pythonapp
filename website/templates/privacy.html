@@ -1,32 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='privacy.css') }}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polityka prywatności - CatsApp</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            color: #fffcfc;
-            background-color: #fff;
-        }
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='privacy.css') }}">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Polityka prywatności - CatsApp</title>
+    </head>
+    <body>
+        <div class="navbar">    
+            <p><a href="{{ url_for('koty') }}">Zobacz koty</a></p>
+            <p><a href="{{ url_for('forum') }}">Forum</a></p>
+            <p><a href="{{ url_for('cat_facts') }}">Losowe fakty o kotach</a></p>
+            <p><a href="{{ url_for('privacy') }}">Polityka prywatności</a></p> <!-- Dodana ścieżka do polityki prywatności -->
+            <p><a href="{{ url_for('logout') }}">Wyloguj się</a></p>
+        </div> 
 
-        h1 {
-            text-align: center;
-        }
+        <h1>Polityka prywatności - CatsApp</h1>
+        
+        <p>Dziękujemy za korzystanie z CatsApp! Ochrona Twojej prywatności i zapewnienie bezpiecznego środowiska podczas korzystania z naszej aplikacji to nasz priorytet. Prosimy o zapoznanie się z poniższymi informacjami, aby zrozumieć, jakie dane zbieramy, w jaki sposób je wykorzystujemy oraz jak je chronimy.</p>
 
-        p {
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Polityka prywatności - CatsApp</h1>
-    
-    <p>Dziękujemy za korzystanie z CatsApp! Ochrona Twojej prywatności i zapewnienie bezpiecznego środowiska podczas korzystania z naszej aplikacji to nasz priorytet. Prosimy o zapoznanie się z poniższymi informacjami, aby zrozumieć, jakie dane zbieramy, w jaki sposób je wykorzystujemy oraz jak je chronimy.</p>
-
-    <h2>1. Rodzaje zbieranych danych</h2>
-    <p>1.1. Dane osobowe: Podczas rejestracji
+        <h2>1. Rodzaje zbieranych danych</h2>
+        <p>1.1. Dane osobowe: Podczas rejestracji
+    </body>
+</html>

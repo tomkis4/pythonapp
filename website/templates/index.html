@@ -8,15 +8,24 @@
 </head>
 <body>
     {% if 'loggedin' in session %}
-        <h1>Witaj ponownie, {{ session['username'] }}!</h1>
-        <p><a href="{{ url_for('koty') }}">Zobacz koty</a></p>
-        <p><a href="{{ url_for('forum') }}">Przejdź do forum</a></p>
-        <p><a href="{{ url_for('cat_facts') }}">Zobacz losowe fakty o kotach</a></p>
-        <p><a href="{{ url_for('privacy') }}">Polityka prywatności</a></p> <!-- Dodana ścieżka do polityki prywatności -->
-        <p><a href="{{ url_for('logout') }}">Wyloguj się</a></p>
+            <h1>Witaj ponownie, {{ session['username'] }}!</h1>
+        <div class="navbar">    
+            <p><a href="{{ url_for('koty') }}">Zobacz koty</a></p>
+            <p><a href="{{ url_for('forum') }}">Forum</a></p>
+            <p><a href="{{ url_for('cat_facts') }}">Losowe fakty o kotach</a></p>
+            <p><a href="{{ url_for('privacy') }}">Polityka prywatności</a></p> <!-- Dodana ścieżka do polityki prywatności -->
+            <p><a href="{{ url_for('logout') }}">Wyloguj się</a></p>
+        </div>            
     {% else %}
-        <h1>Witaj na stronie dla miłośników kotów!</h1>
-        <p><a href="{{ url_for('login') }}">Zaloguj się</a> lub <a href="{{ url_for('register') }}">zarejestruj</a>, aby dołączyć do dyskusji na forum.</p>
+            <h1>Witaj na stronie dla miłośników kotów!</h1>
+        <div class="navbar2">
+            <p><a href="{{ url_for('login') }}">Logowanie</a></p>
+            <p><a href="{{ url_for('register') }}">Rejestracja</a></p>
+        </div>
+            
+        <div class="content-center">    
+            <p><a href="{{ url_for('login') }}">Zaloguj się</a> lub <a href="{{ url_for('register') }}">zarejestruj</a>, aby dołączyć do dyskusji na forum.</p>
+        </div>    
     {% endif %}
 </body>
 </html>

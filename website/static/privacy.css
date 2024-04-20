@@ -3,9 +3,17 @@ body {
     margin: 0;
     padding: 20px;
     color: #ffffffef;
-    background-image: url('https://i.imgur.com/wxE8nEE.jpeg');
+    background: linear-gradient(135deg, #f4b343 0%, #85edfd 100%);
     background-size: cover;
     background-position: center;
+    overflow: hidden;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%
 }
 
 h1 {
@@ -15,4 +23,21 @@ h1 {
 p {
     margin-bottom: 20px;
     color: #fefefe; 
+}
+
+.navbar {
+    background-color: rgba(51, 51, 51, 0.3); /* Przymglony kolor tła */
+    padding: 3.5px 20px; /* Zmniejszenie paddingu na górze i na dole */
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 15px; /* Odstęp między linkami */
+}
+
+.navbar a:last-child {
+    margin-right: 0; /* Usunięcie marginesu z ostatniego linku */
 }

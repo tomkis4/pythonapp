@@ -2,12 +2,24 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #8bf9ee30; /* Jasnozielony kolor tła */
+    background: linear-gradient(135deg, #f4b343 0%, #85edfd 100%);
 }
 
-h1 {
-    text-align: center;
-    margin-top: 20px;
+.navbar {
+    background-color: rgba(51, 51, 51, 0.3); /* Przymglony kolor tła */
+    padding: 3.5px 20px; /* Zmniejszenie paddingu na górze i na dole */
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 15px; /* Odstęp między linkami */
+}
+
+.navbar a:last-child {
+    margin-right: 0; /* Usunięcie marginesu z ostatniego linku */
 }
 
 h2 {
@@ -30,7 +42,7 @@ ul {
 }
 
 li {
-    background-color: #fff;
+    background-color: rgba(51, 51, 51, 0.15); /* Przymglony kolor tła */
     border-radius: 5px;
     padding: 15px;
     margin-top: 20px;
