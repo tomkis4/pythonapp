@@ -22,18 +22,14 @@ def test_login(client):
             cursor.execute("SELECT * FROM users WHERE username = %s", (test_username,))
             user = cursor.fetchone()
 
-    # Jeśli użytkownik nie istnieje, dodaj go do bazy danych
+    # Jeśli użytkownik nie istnieje, zarejestruj go
     if not user:
-        try:
-            with app.app_context():
-                with mysql.connection.cursor() as cursor:
-                    cursor.execute("INSERT INTO users(username, password) VALUES(%s, %s)", (test_username, test_password))
-                mysql.connection.commit()
-        except Exception as e:
-            pytest.fail(f"Błąd podczas wstawiania testowego użytkownika do bazy danych: {str(e)}")
-    else:
-        # Użytkownik już istnieje, nie dodawaj go ponownie
-        pass
+        response = client.post('/register', data=dict(
+            username=test_username,
+            password=test_password
+        ), follow_redirects=True)
+        assert response.status_code == 200  # Upewnij się, że rejestracja zakończyła się sukcesem
+        assert 'Użytkownik już istnieje.' not in response.data.decode('utf-8')  # Upewnij się, że nie zwraca komunikatu o błędnej rejestracji
 
     # Próba logowania z poprawnymi danymi
     response = client.post('/login', data=dict(
@@ -42,7 +38,7 @@ def test_login(client):
     ), follow_redirects=True)
 
     # Sprawdzenie, czy logowanie zakończyło się sukcesem
-    assert b'Witaj ponownie, testuser!' in response.data
+    assert 'Witaj ponownie, testuser!' in response.data.decode('utf-8')
 
     # Usunięcie użytkownika z bazy danych
     with app.app_context():
