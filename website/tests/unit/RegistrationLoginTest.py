@@ -34,7 +34,7 @@ def test_login(client):
             cursor.execute("SELECT * FROM users WHERE username = %s", (test_username,))
             user = cursor.fetchone()
 
-    # Jeśli użytkownik nie istnieje, zarejestruj go
+    # Jeśli użytkownik nie istnieje, rejestrujemy go
     if not user:
         response = client.post('/register', data=dict(
             username=test_username,

@@ -4,7 +4,6 @@ This file is part of the CatsApp.
 Authors:
 - Julia Herold
 - Tomasz Kiselyczka
-- Tomasz Kiselyczka
 - Grzegorz Szymanik
 
 Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -41,19 +40,19 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        # Pobierz dane z formularza
+        # Pobieranie danych z formularza
         userDetails = request.form
         username = userDetails['username']
         password = userDetails['password']
 
         try:
-            # Sprawdź czy użytkownik już istnieje
+            # Sprawdzanie czy użytkownik już istnieje
             cur = mysql.connection.cursor()
             result = cur.execute("SELECT * FROM users WHERE username = %s", (username,))
             if result > 0:
                 return 'Użytkownik już istnieje.'
             else:
-                # Zapisz dane do bazy danych
+                # Zapisanie danych do bazy danych
                 cur.execute("INSERT INTO users(username, password) VALUES(%s, %s)", (username, password))
                 mysql.connection.commit()
                 cur.close()
@@ -67,13 +66,13 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        # Pobierz dane z formularza
+        # Pobieranie danych z formularza
         userDetails = request.form
         username = userDetails['username']
         password = userDetails['password']
 
         try:
-            # Sprawdź czy użytkownik istnieje w bazie danych
+            # Sprawdzanie czy użytkownik istnieje w bazie danych
             cur = mysql.connection.cursor()
             result = cur.execute("SELECT * FROM users WHERE username = %s AND password = %s", (username, password))
             if result > 0:
@@ -113,7 +112,7 @@ def forum():
 
     if 'loggedin' in session:
         try:
-            # Pobierz wszystkie posty z bazy danych
+            # Pobieranie wszystkich postów z bazy danych
             cur = mysql.connection.cursor()
             cur.execute("SELECT posts.title, posts.content, users.username AS author, posts.created_at FROM posts JOIN users ON posts.user_id = users.user_id ORDER BY posts.created_at DESC")
             posts = cur.fetchall()
@@ -137,7 +136,7 @@ def koty():
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             data = response.json()
-            # Wyciągnij URL obrazu kota z danych
+            # Wyciągnięcie URL obrazu kota z danych
             img_url = data[0]['url']
             return render_template('cats.html', img_url=img_url)
         else:
@@ -155,7 +154,7 @@ def next_cat_image():
         if response.status_code == 200:
             data = response.json()
             img_url = data[0]['url']
-            return jsonify({'img_url': img_url})  # Zwracamy URL obrazka w formacie JSON
+            return jsonify({'img_url': img_url})  # Zwracanie URL obrazka w formacie JSON
         else:
             return jsonify({'error': 'Błąd podczas pobierania obrazu kota.'}), 500
     except Exception as e:
@@ -164,7 +163,7 @@ def next_cat_image():
 @app.route('/cat_facts')
 def cat_facts():
     try:
-        # Wykonujemy zapytanie GET do API Cat Facts
+        # zapytanie GET do API Cat Facts
         response = requests.get('https://catfact.ninja/fact')
 
         # Sprawdzamy czy odpowiedź jest poprawna (status code 200)

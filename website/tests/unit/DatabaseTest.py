@@ -15,7 +15,7 @@ import os
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(project_root)
 import pytest
-from app import app, mysql  # Importuj app i mysql z pliku app.py
+from app import app, mysql  
 
 @pytest.fixture(scope='module')
 def client():
@@ -24,9 +24,8 @@ def client():
             yield client
 
 def test_database_connection(client):
-    # Próba wykonania prostej operacji na bazie danych
+    # Próba wykonania operacji select na bazie danych
     try:
-        # Tutaj możesz wykonać dowolną operację na bazie danych, na przykład wykonując zapytanie SELECT
         with mysql.connection.cursor() as cursor:
             cursor.execute("SELECT 1")
             result = cursor.fetchone()
