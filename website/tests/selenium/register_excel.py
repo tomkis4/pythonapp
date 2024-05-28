@@ -107,7 +107,7 @@ if __name__ == "__main__":
     results = []                         # w tej tablicy są tworzone wyniki do podsumowania pod koniec
 
 
-    for index, row in data.iterrows():      # funkcja do iteracji po wierszach wewnątrz 'dane'
+    for index, row in data.iterrows():      # funkcja do iteracji po wierszach wewnątrz 'data'
         login = row['login']
         password = row['password']
         print(f"Testowanie rejestracji dla użytkownika: {login} oraz hasła: {password}")
