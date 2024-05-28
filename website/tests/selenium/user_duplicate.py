@@ -17,7 +17,7 @@ import time
 
 
 
-def test_rejestracja():
+def test_register():
 
     driver = webdriver.Chrome()
     driver.maximize_window()
@@ -28,32 +28,34 @@ def test_rejestracja():
 
         # Strona Główna    ---------------------------
 
-        przycisk_do_logowania = driver.find_element(By.LINK_TEXT, "zarejestruj")
-        przycisk_do_logowania.click()
+        menu_button_login = driver.find_element(By.LINK_TEXT, "zarejestruj")
+        menu_button_login.click()
 
         time.sleep(2)
 
-        nazwa_uzytkownika = driver.find_element(By.ID, "username")
-        nazwa_uzytkownika2 = driver.find_element(By.ID, "username")
-        haslo = driver.find_element(By.ID, "password")
-        haslo2 = driver.find_element(By.ID, "password")
-        przycisk_zaloguj = driver.find_element(By.ID, "submit")
+        username1 = driver.find_element(By.ID, "username")
+        username2 = driver.find_element(By.ID, "username")
+        pass1 = driver.find_element(By.ID, "password")
+        pass2 = driver.find_element(By.ID, "password")
+        login_button = driver.find_element(By.ID, "submit")
+        login_button2 = driver.find_element(By.ID, "submit")
 
-        nazwa_uzytkownika.send_keys("testuser1")
-        haslo.send_keys("test1234")
 
-        time.sleep(2)
-
-        przycisk_zaloguj.click()
+        username1.send_keys("testuser9")
+        pass1.send_keys("test1234")
 
         time.sleep(2)
 
-        nazwa_uzytkownika2.send_keys("testuser1")
-        haslo2.send_keys("test1234")
+        login_button.click()
 
         time.sleep(2)
 
-        przycisk_zaloguj.click()
+        username2.send_keys("testuser9")
+        pass2.send_keys("test1234")
+
+        time.sleep(2)
+
+        login_button2.click()
 
 
 
@@ -63,7 +65,7 @@ def test_rejestracja():
         driver.quit()
 
 if __name__ == "__main__":
-    test_rejestracja()
+    test_register()
 
 
 
