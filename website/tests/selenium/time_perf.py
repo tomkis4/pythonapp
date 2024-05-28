@@ -14,53 +14,53 @@ from selenium import webdriver
 import time
 import io
 
-plik_z_czasami= 'wyniki_wydajnosci.txt'
+results_file= 'wyniki_wydajnosci.txt'
 
-def pomiar(driver, url):
+def meter(driver, url):
     start_time = time.time()
     driver.get(url)
     end_time = time.time()
     return end_time - start_time
 
-def test_wydajnosci():
+def perf_test():
 
     driver = webdriver.Chrome()
     driver.maximize_window()
-    wyniki = []
+    results = []
 
     try:
-        czas_main= pomiar(driver, "http://127.0.0.1:5000")
-        print(f"Czas ładowania strony głównej: {czas_main:.2f} sekund")
-        wyniki.append(("Strona główna", czas_main))
+        time_main= meter(driver, "http://127.0.0.1:5000")
+        print(f"Czas ładowania strony głównej: {time_main:.2f} sekund")
+        results.append(("Strona główna", time_main))
 
-        czas_register= pomiar(driver, "http://127.0.0.1:5000/register")
-        print(f"Czas ładowania strony rejestracji: {czas_register:.2f} sekund")
-        wyniki.append(("Strona rejestracji", czas_register))
+        time_register= meter(driver, "http://127.0.0.1:5000/register")
+        print(f"Czas ładowania strony rejestracji: {time_register:.2f} sekund")
+        results.append(("Strona rejestracji", time_register))
 
     finally:
 
         driver.quit()
 
-    return wyniki
+    return results
 
-def zapisz_wyniki_do_pliku(wyniki, plik_wynikowy):
-    with io.open(plik_wynikowy, 'w', encoding='utf8') as f:
+def write_results_file(results, results_file):
+    with io.open(results_file, 'w', encoding='utf8') as f:
 
         f.write("Podsumowanie wyników testów wydajności:\n")
 
-        for wynik in wyniki:
-            f.write(f"{wynik[0]}, Czas ładowania: {wynik[1]:.2f} sekund\n")
+        for result in results:
+            f.write(f"{result[0]}, Czas ładowania: {result[1]:.2f} sekund\n")
 
 
 
 if __name__ == "__main__":
 
-    wyniki = test_wydajnosci()
+    results = perf_test()
 
     print("\nPodsumowanie wyników testów wydajności:")
-    for wynik in wyniki:
-         print(f"{wynik[0]}, Czas ładowania: {wynik[1]:.2f} sekund")
+    for result in results:
+         print(f"{result[0]}, Czas ładowania: {result[1]:.2f} sekund")
 
 
 
-    zapisz_wyniki_do_pliku(wyniki, plik_z_czasami)    # Zapisanie wyników do pliku .txt
+    write_results_file(results, results_file)    # Zapisanie wyników do pliku .txt

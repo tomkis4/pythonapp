@@ -17,7 +17,7 @@ import time
 
 
 
-def test_logowanie():
+def test_login():
 
     driver = webdriver.Chrome()
     driver.maximize_window()
@@ -28,26 +28,26 @@ def test_logowanie():
 
         # Strona Główna    ---------------------------
 
-        przycisk_do_logowania = driver.find_element(By.LINK_TEXT, "Zaloguj się")
-        przycisk_do_logowania.click()
+        login_button = driver.find_element(By.LINK_TEXT, "Zaloguj się")
+        login_button.click()
 
         time.sleep(3)
 
         #teraz ustalamy gdzie driver ma szukać odpowiednich miejsc na stronie logowania
         
 
-        nazwa_uzytkownika = driver.find_element(By.ID, "username")
-        haslo = driver.find_element(By.ID, "password")
-        przycisk_zaloguj = driver.find_element(By.ID, "submit")
+        username = driver.find_element(By.ID, "username")
+        password = driver.find_element(By.ID, "password")
+        button_click = driver.find_element(By.ID, "submit")
 
         # teraz driver będzie wypełniał pola
 
-        nazwa_uzytkownika.send_keys("cebula123")
-        haslo.send_keys("greg1234")
+        username.send_keys("testuser123")
+        password.send_keys("test1234")
 
         time.sleep(3)
 
-        przycisk_zaloguj.click()
+        button_click.click()
 
         time.sleep(5)
 
@@ -58,4 +58,4 @@ def test_logowanie():
         driver.quit()
 
 if __name__ == "__main__":
-    test_logowanie()
+    test_login()
