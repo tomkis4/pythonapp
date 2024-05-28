@@ -13,7 +13,7 @@ Licensed under the MIT License. See LICENSE file in the project root for full li
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 import requests
-import re  # Importowanie modułu do obsługi wyrażeń regularnych
+import re  
 from flask import jsonify
 
 app = Flask(__name__)
