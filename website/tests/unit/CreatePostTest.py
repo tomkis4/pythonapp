@@ -9,7 +9,6 @@ Authors:
 Licensed under the MIT License. See LICENSE file in the project root for full license information.
 """
 
-
 import sys
 import os
 import pytest
@@ -17,7 +16,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 
 # ścieżka do katalogu głównego aplikacji
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')))
 
 from website.app import app, mysql
 
@@ -62,6 +61,7 @@ def test_add_post(client):
         username=test_username,
         password=test_password
     ), follow_redirects=True)
+    print(f"Login response data: {response.data.decode('utf-8')}")
     assert response.status_code == 200
     assert 'Forum' in response.data.decode('utf-8')
 
@@ -72,6 +72,7 @@ def test_add_post(client):
         post_title=post_title,
         post_content=post_content
     ), follow_redirects=True)
+    print(f"Add post response data: {response.data.decode('utf-8')}")
     assert response.status_code == 200
     assert 'Forum' in response.data.decode('utf-8')
 

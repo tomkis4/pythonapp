@@ -1,6 +1,3 @@
-2.53
-KB | None |
-
 """
 This file is part of the CatsApp.
 
@@ -11,7 +8,6 @@ Authors:
 
 Licensed under the MIT License. See LICENSE file in the project root for full license information.
 """
-
 import sys
 import os
 
