@@ -6,7 +6,7 @@ from colorama import Fore, Style
 import traceback
 import io
 
-plik_excel = 'dane.xlsx'
+plik_excel = 'data.xlsx'
 plik_wyniki = 'wyniki_testów_rejestracji.txt'
 
 def odczyt_danych():
