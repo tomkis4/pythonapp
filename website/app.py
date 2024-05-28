@@ -100,7 +100,7 @@ def forum():
 
     if 'loggedin' in session:
         try:
-            # Pobieranie postów z bazy danych
+            # Pobierz wszystkie posty z bazy danych
             cur = mysql.connection.cursor()
             cur.execute("SELECT posts.title, posts.content, users.username AS author, posts.created_at FROM posts JOIN users ON posts.user_id = users.user_id ORDER BY posts.created_at DESC")
             posts = cur.fetchall()
@@ -108,7 +108,6 @@ def forum():
 
             # Dodatkowe drukowanie w celu debugowania
             print(posts)
-            
 
             # Przekazanie listy postów do szablonu forum.html
             return render_template('forum.html', posts=posts)
