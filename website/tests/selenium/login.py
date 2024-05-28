@@ -34,7 +34,7 @@ def test_logowanie():
         time.sleep(3)
 
         #teraz ustalamy gdzie driver ma szukać odpowiednich miejsc na stronie logowania
-        #----------------------------------------------------------------------------------
+        
 
         nazwa_uzytkownika = driver.find_element(By.ID, "username")
         haslo = driver.find_element(By.ID, "password")

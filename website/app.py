@@ -4,7 +4,6 @@ This file is part of the CatsApp.
 Authors:
 - Julia Herold
 - Tomasz Kiselyczka
-- Tomasz Kiselyczka
 - Grzegorz Szymanik
 
 Licensed under the MIT License. See LICENSE file in the project root for full license information.

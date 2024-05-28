@@ -16,7 +16,7 @@ import pytest
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 
-# Dodajemy ścieżkę do katalogu głównego aplikacji
+# ścieżka do katalogu głównego aplikacji
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 from website.app import app, mysql
@@ -67,7 +67,7 @@ def test_add_post(client):
 
     # Dodanie nowego postu z unikalnym tytułem
     post_title = get_unique_post_title(base_post_title)
-    print(f"Generated unique post title: {post_title}")  # Debugging information
+    print(f"Generated unique post title: {post_title}") 
     response = client.post('/add_post', data=dict(
         post_title=post_title,
         post_content=post_content
@@ -81,8 +81,7 @@ def test_add_post(client):
             cursor.execute("SELECT post_id, title, content, user_id FROM posts WHERE title = %s AND content = %s", (post_title, post_content))
             post = cursor.fetchone()
             assert post is not None
-            # Zakładamy, że kolumny są w kolejności: post_id, title, content, user_id
-            print(f"Database entry: {post}")  # Debugging information
+            print(f"Database entry: {post}")  
             assert post[1] == post_title
             assert post[2] == post_content
 

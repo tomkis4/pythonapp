@@ -24,9 +24,8 @@ def client():
             yield client
 
 def test_database_connection(client):
-    # Próba wykonania prostej operacji na bazie danych
+    # Próba wykonania operacji select na bazie danych
     try:
-        # Tutaj możesz wykonać dowolną operację na bazie danych, na przykład wykonując zapytanie SELECT
         with mysql.connection.cursor() as cursor:
             cursor.execute("SELECT 1")
             result = cursor.fetchone()
