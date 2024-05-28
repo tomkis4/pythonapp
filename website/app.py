@@ -13,6 +13,7 @@ Licensed under the MIT License. See LICENSE file in the project root for full li
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 import requests
+import re  # Importowanie modułu do obsługi wyrażeń regularnych
 from flask import jsonify
 
 app = Flask(__name__)
@@ -27,10 +28,12 @@ app.config['MYSQL_PASSWORD'] = ''  # Twoje hasło MySQL
 app.config['MYSQL_DB'] = 'python'  # Nazwa bazy danych
 
 mysql = MySQL(app)
+
 #strona z polityką prywatności
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
+
 # Strona główna
 @app.route('/')
 def index():
@@ -44,6 +47,12 @@ def register():
         userDetails = request.form
         username = userDetails['username']
         password = userDetails['password']
+
+        # Walidacja username
+        if len(username) > 20:
+            return 'Nazwa użytkownika nie może przekraczać 20 znaków.'
+        if not re.search(r'\d', username):
+            return 'Nazwa użytkownika musi zawierać co najmniej jedną cyfrę.'
 
         try:
             # Sprawdzanie czy użytkownik już istnieje
@@ -127,6 +136,7 @@ def forum():
             return f'Wystąpił błąd podczas pobierania postów: {str(e)}'
     else:
         return redirect(url_for('login'))
+
 @app.route('/cats')
 def koty():
     url = 'https://api.thecatapi.com/v1/images/search'
@@ -143,7 +153,8 @@ def koty():
             return 'Błąd podczas pobierania obrazu kota.'
     except Exception as e:
         return f'Wystąpił błąd: {str(e)}'
-    # Endpoint dla kolejnego obrazu kota
+
+# Endpoint dla kolejnego obrazu kota
 @app.route('/next_cat_image')
 def next_cat_image():
     url = 'https://api.thecatapi.com/v1/images/search'
@@ -159,6 +170,7 @@ def next_cat_image():
             return jsonify({'error': 'Błąd podczas pobierania obrazu kota.'}), 500
     except Exception as e:
         return jsonify({'error': f'Wystąpił błąd: {str(e)}'}), 500
+
 # Endpoint dla strony z losowymi faktami o kotach
 @app.route('/cat_facts')
 def cat_facts():
@@ -178,6 +190,7 @@ def cat_facts():
     except Exception as e:
         # Jeśli wystąpi błąd podczas pobierania danych z API, zwracamy komunikat o błędzie
         return f'Wystąpił błąd: {str(e)}'
+
 # Endpoint dla kolejnego losowego faktu o kotach
 @app.route('/next_cat_fact')
 def next_cat_fact():
@@ -195,7 +208,6 @@ def next_cat_fact():
     except Exception as e:
         return jsonify({'error': f'Wystąpił błąd: {str(e)}'}), 500
 
-
 # Wylogowanie
 @app.route('/logout')
 def logout():
@@ -204,5 +216,3 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
