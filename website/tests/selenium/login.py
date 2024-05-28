@@ -33,7 +33,7 @@ def test_login():
 
         time.sleep(3)
 
-        #teraz ustalamy gdzie driver ma szukać odpowiednich miejsc na stronie logowania
+        # teraz ustalamy gdzie driver ma szukać odpowiednich miejsc na stronie logowania
         
 
         username = driver.find_element(By.ID, "username")

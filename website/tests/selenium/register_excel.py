@@ -10,24 +10,24 @@ Licensed under the MIT License. See LICENSE file in the project root for full li
 """
 
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-import time
-import pandas as pd
-from colorama import Fore, Style
-import traceback
-import io
+from selenium import webdriver                          # biblioteka
+from selenium.webdriver.common.by import By             # gotowy set z strategiami lokalizowania elementów na stronie
+import time                                             # implementacja funkcji związanych z czasem
+import pandas as pd                                     # obsługa danych - w tym funkcja iterrow ktorej potrzebujemy
+from colorama import Fore, Style                        # kolorowanie tekstu w terminalu
+import traceback                                        # obsługa błędów
+import io                                               # duża biblioteka obsługi input/output , zawiera kodek utf-8 potrzebny do polskich znaków
 
 excel_file = 'data.xlsx'
 results_file = 'wyniki_testów_rejestracji.txt'
 
 def data_upload():
-    df = pd.read_excel(excel_file)
+    df = pd.read_excel(excel_file)          # ta funkcja odczytuje plik o nazwie z zmiennej
     return df
 
 
 def write_result(results, results_file):
-    with io.open(results_file, 'w', encoding='utf8') as p:
+    with io.open(results_file, 'w', encoding='utf8') as p:          # tworzenie pliku z kodekiem utf-8
         p.write("Podsumowanie wyników testów\n")
 
         for record in results:
@@ -36,6 +36,8 @@ def write_result(results, results_file):
             else:
                 p.write(f"Użytkownik: {record[0]}, Status: {record[2]}, Błąd: {record[3]}\n\n")
 
+                # Tworzenie informacji o przebiegu testów
+
 
 def test_register(login, password, results):
 
@@ -43,8 +45,8 @@ def test_register(login, password, results):
     driver.maximize_window()
 
     try:
-        driver.get("http://127.0.0.1:5000")
-        time.sleep(1)
+        driver.get("http://127.0.0.1:5000")                 # wejscie na główną stronę
+        time.sleep(2)
 
         # Strona Główna    --------------------------------------------------------------------------
 
@@ -54,13 +56,13 @@ def test_register(login, password, results):
         time.sleep(1)
 
         username1 = driver.find_element(By.ID, "username")
-        password1 = driver.find_element(By.ID, "password")
+        password1 = driver.find_element(By.ID, "password")              #nawigacja po menu i wpisywanie danych
         login_button = driver.find_element(By.ID, "submit")
 
         username1.send_keys(login)
         password1.send_keys(password)
 
-        time.sleep(1)
+        time.sleep(2)
 
         login_button.click()
 
@@ -76,19 +78,19 @@ def test_register(login, password, results):
         username2.send_keys(login)
         pass2.send_keys(password)
 
-        time.sleep(1)
+        time.sleep(2)
 
         login_button2.click()
 
         # --------------------------------------------------------------------------------------------
-        time.sleep(3)
+        time.sleep(2)
 
         print(Fore.GREEN + f"PASSED: Rejestracja konta i logowanie dla użytkownika: {login} przebiegło pomyślnie." + Style.RESET_ALL)
 
         results.append((login, password, 'PASSED'))
 
 
-
+                                            # Komunikat do terminulu o wyniku testu
 
     except:
 
