@@ -15,7 +15,7 @@ import os
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(project_root)
 import pytest
-from app import app, mysql  # Importuj app i mysql z pliku app.py
+from app import app, mysql  
 
 @pytest.fixture(scope='module')
 def client():
